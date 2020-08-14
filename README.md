@@ -67,3 +67,14 @@ curl 169.254.169.254/latest/meta-data/network/interfaces/macs/xx:xx:xx:xx:xx:xx/
   - Adding the static route for the supernet will get this working appopriately. The only thing we don't want, is blanket default routes coming from AWS.
 - PrivateLink Breaks
   - Same as above. Add the static route for the supernet to the gateway of the subnet. 
+- I can't access my hosts from outside the subnet!
+  - This would only happen if the static route was missing
+- I need to access my hosts from other VPCs
+  - Fantastic! Let's use some egress controls. Just add those routes to the routers and advertise them to the hosts.
+
+# Actually controlling egress
+I didn't put any "control" in to this demo, but here are some examples of things you could configure on the routers to restrict/gate egress to the internet. 
+- Transparent Squid Proxy
+- IPTables rules
+
+Obviously in a cloud setting, your routers will need a path out to the internet (IGW, DX, TGW, etc)
